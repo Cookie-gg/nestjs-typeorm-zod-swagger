@@ -17,7 +17,7 @@ describe('UserController (e2e)', () => {
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot({ ...config().database, entities: [UserEntity] }), UserModule],
+      imports: [TypeOrmModule.forRoot({ ...config, entities: [UserEntity] }), UserModule],
     }).compile();
 
     app = moduleFixture.createNestApplication<NestFastifyApplication>(new FastifyAdapter());

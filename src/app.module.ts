@@ -8,14 +8,14 @@ import { config } from '~/libs/typeorm';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      ignoreEnvFile: true,
+      ignoreEnvFile: process.env.NODE_ENV !== 'production',
+      envFilePath: process.env.NODE_ENV === 'production' ? `.env.${process.env.NODE_ENV}` : undefined,
       load: [config],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({ ...configService.get('database') }),
+      useFactory: async (configService: ConfigService) => ({ ...configService.get('database') }),
     }),
-    TypeOrmModule.forRoot(),
     UserModule,
     AuthModule,
   ],

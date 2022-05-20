@@ -1,13 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { IsEmail, IsLowercase, IsString, MinLength } from 'class-validator';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
