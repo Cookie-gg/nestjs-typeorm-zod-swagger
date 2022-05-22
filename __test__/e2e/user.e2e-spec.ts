@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { mocks } from '~/mocks';
+import { mocks } from '@cookie-gg/shared';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from '~/libs/typeorm';
 import { TestResponse } from '~/types/api';

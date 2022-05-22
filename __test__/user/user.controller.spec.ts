@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from '~/libs/typeorm';
-import { mocks } from '~/mocks';
+import { mocks } from '@cookie-gg/shared';
 import { UserController } from '~/controllers';
 import { UserModule } from '~/modules';
 import { UserService } from '~/services';
