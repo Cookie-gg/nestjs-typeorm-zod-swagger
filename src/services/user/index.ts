@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isEmail } from 'class-validator';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -8,13 +8,14 @@ import { UserEntity } from '~/domain/entities/user';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) {}
 
-  async create(data: CreateUserInput): Promise<User> {
+  async create(data: CreateUserInput) {
     data.password = await bcrypt.hash(data.password, 10);
-    return this.userRepository.save(data);
+    const user = this.userRepository.save(data).catch((e) => {
+      if (e instanceof Error) throw new NotAcceptableException(e.message);
+    });
+    return user;
   }
 
   async findAll(): Promise<User[]> {
@@ -22,7 +23,7 @@ export class UserService {
   }
 
   async find(uniqueData: string): Promise<User> {
-    const user = await this.userRepository.findOne(this.validateUniqueData(uniqueData));
+    const user = await this.userRepository.findOne({ where: this.validateUniqueData(uniqueData) });
     if (!user) throw new NotFoundException('A user is not found');
     return user;
   }
