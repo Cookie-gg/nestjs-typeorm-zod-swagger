@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-openapi-prisma",
+  "name": "nestjs-typeorm-zod-swagger",
   "version": "0.0.1",
   "description": "",
   "author": "",
