@@ -31,22 +31,18 @@ describe('UserController (e2e)', () => {
 
   it('/user (POST)', async () => {
     const res: TestResponse<User> = await req.post('/user').send(mocks.user.user);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...user } = mocks.user.user;
-    expect(res.body).toStrictEqual(expect.objectContaining(user));
+    expect(res.body).toStrictEqual(expect.objectContaining(mocks.user.user));
   });
 
   it('/user:id (Get)', async () => {
     const res: TestResponse<User> = await req.get(`/user/${mocks.user.user.uid}`);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...user } = mocks.user.user;
-    expect(res.body).toStrictEqual(expect.objectContaining(user));
+    expect(res.body).toStrictEqual(expect.objectContaining(mocks.user.user));
   });
 
   it('/user:id (Update)', async () => {
     const res: TestResponse<UpdateResult> = await req.put(`/user/${mocks.user.user.uid}`).send({
       ...mocks.user.user,
-      email: 'updated@exmaple.com',
+      name: mocks.user.updatedName,
     });
     expect(res.body.affected).toBe(1);
   });

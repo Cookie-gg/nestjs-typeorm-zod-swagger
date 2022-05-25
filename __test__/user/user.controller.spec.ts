@@ -36,7 +36,7 @@ describe('UserController', () => {
   });
 
   it('should update a user by unique data', async () => {
-    const res = await controller.updateUser({ id: mocks.user.user.uid }, { name: 'hogehgoe' });
+    const res = await controller.updateUser({ id: mocks.user.user.uid }, { name: mocks.user.updatedName });
     expect(res.affected).toBe(1);
   });
 

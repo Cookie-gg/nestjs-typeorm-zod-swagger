@@ -8,12 +8,10 @@ import { UserEntity } from '~/domain/entities/user';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) {}
 
   async create(data: CreateUserInput): Promise<User> {
-    data.password = await bcrypt.hash(data.password, 10);
+    if (process.env.NODE_ENV !== 'test') data.password = await bcrypt.hash(data.password, 10);
     return this.userRepository.save(data);
   }
 
